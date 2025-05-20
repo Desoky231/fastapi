@@ -109,8 +109,9 @@ async def chat_with_audio(file: UploadFile = File(...)):
     """One-shot: audio → Whisper-1 → Gemini answer."""
     transcript = openai_whisper_from_upload(file)
     try:
-        gemini_resp = GEMINI_MODEL.generate_content(transcript)
+        gemini_resp = GEMINI_MODEL.generate_content(transcript) ## change this to onchain 
     except Exception as exc:
         raise HTTPException(500, str(exc)) from exc
-
+    # add the functions needed for the text to speach in deepgram (eg. segmentTextBySentence, Save_Audio_Segments)
+    # return the output made from deepgrame
     return {"transcript": transcript, "response": gemini_resp.text}
