@@ -72,7 +72,7 @@ def openai_whisper_from_upload(upload: UploadFile) -> str:
             model=WHISPER_MODEL,
             # tuple form: (filename, file-like-object, mime-type)
             file=(filename, upload.file, upload.content_type),
-            language="ar",          # Modern Standard Arabic & dialects
+            language="en",          # Modern Standard Arabic & dialects
             response_format="text"  # get plain string back
         )
         return resp.strip()
@@ -95,7 +95,6 @@ async def ask_ai(req: PromptRequest):
         return {"response": result.text}
     except Exception as exc:
         raise HTTPException(500, str(exc)) from exc
-
 
 @app.post("/transcribe")
 async def transcribe_audio(file: UploadFile = File(...)):
